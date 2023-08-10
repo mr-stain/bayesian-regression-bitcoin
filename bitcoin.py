@@ -100,7 +100,7 @@ trainData = pd.DataFrame(d)
 model = smf.ols(
     formula='deltaP ~ deltaP90 + deltaP180 + deltaP360', data=trainData).fit()
 # Print the weights from the model
-print model.params
+print (model.params)
 
 # Perform the Bayesian Regression to predict the average price change for each dataset of test using train1 as input.
 # This should be similar to above where it was computed for train2.
@@ -136,4 +136,4 @@ compareDF = pd.DataFrame(compare)
 # Compute the MSE and print the result
 MSE = 0.0
 MSE = sm.mean_squared_error(compareDF['Actual'], compareDF['Predicted'])
-print "The MSE is %f" % (MSE)
+print ("The MSE is %f" % (MSE))
