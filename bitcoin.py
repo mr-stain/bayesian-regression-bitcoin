@@ -3,26 +3,20 @@ import sklearn.metrics as sm
 import pandas as pd
 import numpy as np
 import math
-import sys
 
-# The path to the data folder should be given as input
-if len(sys.argv) != 2:
-    print('bitcoin.py <path to data folder>')
-    sys.exit(1)
-data_path = sys.argv[1]
 
 # Reading the vectors from the given csv files
-train1_90 = pd.read_csv(data_path+'/train1_90.csv')
-train1_180 = pd.read_csv(data_path+'/train1_180.csv')
-train1_360 = pd.read_csv(data_path+'/train1_360.csv')
+train1_90 = pd.read_csv('./data/train1_90.csv')
+train1_180 = pd.read_csv('./data/train1_180.csv')
+train1_360 = pd.read_csv('./data/train1_360.csv')
 
-train2_90 = pd.read_csv(data_path+'/train2_90.csv')
-train2_180 = pd.read_csv(data_path+'/train2_180.csv')
-train2_360 = pd.read_csv(data_path+'/train2_360.csv')
+train2_90 = pd.read_csv('./data/train2_90.csv')
+train2_180 = pd.read_csv('./data/train2_180.csv')
+train2_360 = pd.read_csv('./data/train2_360.csv')
 
-test_90 = pd.read_csv(data_path+'/test_90.csv')
-test_180 = pd.read_csv(data_path+'/test_180.csv')
-test_360 = pd.read_csv(data_path+'/test_360.csv')
+test_90 = pd.read_csv('./data/test_90.csv')
+test_180 = pd.read_csv('./data/test_180.csv')
+test_360 = pd.read_csv('./data/test_360.csv')
 
 
 def measure(a, b):
@@ -73,13 +67,13 @@ weight = 2  # This constant was not specified in the paper, but we will use 2.
 trainDeltaP90 = np.empty(0)
 trainDeltaP180 = np.empty(0)
 trainDeltaP360 = np.empty(0)
-for i in xrange(0, len(train1_90.index)):
+for i in range(0, len(train1_90.index)):
     trainDeltaP90 = np.append(trainDeltaP90, computeDelta(
         weight, train2_90.iloc[i], train1_90))
-for i in xrange(0, len(train1_180.index)):
+for i in range(0, len(train1_180.index)):
     trainDeltaP180 = np.append(trainDeltaP180, computeDelta(
         weight, train2_180.iloc[i], train1_180))
-for i in xrange(0, len(train1_360.index)):
+for i in range(0, len(train1_360.index)):
     trainDeltaP360 = np.append(trainDeltaP360, computeDelta(
         weight, train2_360.iloc[i], train1_360))
 
@@ -106,13 +100,13 @@ print (model.params)
 # This should be similar to above where it was computed for train2.
 weight = 2
 testDeltaP90 = testDeltaP180 = testDeltaP360 = np.empty(0)
-for i in xrange(0, len(train1_90.index)):
+for i in range(0, len(train1_90.index)):
     testDeltaP90 = np.append(testDeltaP90, computeDelta(
         weight, test_90.iloc[i], train1_90))
-for i in xrange(0, len(train1_180.index)):
+for i in range(0, len(train1_180.index)):
     testDeltaP180 = np.append(testDeltaP180, computeDelta(
         weight, test_180.iloc[i], train1_180))
-for i in xrange(0, len(train1_360.index)):
+for i in range(0, len(train1_360.index)):
     testDeltaP360 = np.append(testDeltaP360, computeDelta(
         weight, test_360.iloc[i], train1_360))
 
